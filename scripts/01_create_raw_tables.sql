@@ -12,7 +12,7 @@ CREATE TABLE raw_usuarios (
     dl_load_timestamp TIMESTAMP 
 );
 
-CREATE TABLE row_posts (
+CREATE TABLE raw_posts (
     id INTEGER PRIMARY KEY,
     user_id INTEGER,
     title TEXT,
