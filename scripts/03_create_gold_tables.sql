@@ -1,4 +1,4 @@
-CREATE TABLE gold_netricas_usuario (
+CREATE TABLE gold_metricas_usuario (
     user_id INTEGER PRIMARY KEY,
     nome_usuario VARCHAR (255),
     cidade VARCHAR (255),
