@@ -77,6 +77,7 @@ def extract_posts() -> pd.DataFrame:
     posts = fetch_posts()
 
     df = pd.DataFrame(posts)
+    df = df.rename(columns={"userId": "user_id"}) # correcao para o padrão da tabela raw_posts
     df["dl_load_timestamp"] = pd.Timestamp.now()
 
     return df
