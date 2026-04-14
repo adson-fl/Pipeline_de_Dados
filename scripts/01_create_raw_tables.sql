@@ -7,7 +7,7 @@ CREATE TABLE raw_usuarios (
     address_city VARCHAR (255),
     address_zipcode, VARCHAR (255),
     phone VARCHAR (50),
-    wabsite VARCHAR (255),
+    website VARCHAR (255),
     company_name VARCHAR (255),
     dl_load_timestamp TIMESTAMP 
 );

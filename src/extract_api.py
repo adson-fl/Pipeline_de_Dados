@@ -1,6 +1,7 @@
 import requests 
 import pandas as pd
 
+
 # lista de dicionario de usuarios
 def fetch_usuarios() -> list[dict]:
 
@@ -23,7 +24,7 @@ def fetch_usuarios() -> list[dict]:
     except ValueError as e:
         print(f"Erro de validação: {e}")
         return []
-    pass
+pass
 # lista de dicionario de posts
 def fetch_posts() -> list[dict]:
    
@@ -45,4 +46,38 @@ def fetch_posts() -> list[dict]:
     except ValueError as e:
         print(f"Erro de validação: {e}")
         return []
-    pass
+pass
+
+def flatte_usuario(usuario: dict) -> dict:
+    return{
+        "id": usuario.get("id"),
+        "name": usuario.get("name"),
+        "username": usuario.get("username"),
+        "email": usuario.get("email"),
+        "address_street": usuario.get("address", {}).get("street"),
+        "address_city": usuario.get("address", {}).get("city"),
+        "address_zipcode": usuario.get("address", {}).get("zipcode"),
+        "phone": usuario.get("phone"),
+        "website": usuario.get("website"),
+        "company_name": usuario.get("company", {}).get("name")
+    }
+pass
+
+def extract_usuarios() -> pd.DataFrame:
+    usuarios = fetch_usuarios()
+    ususarios_flet = [flatte_usuario(u) for u in usuarios]
+
+    df = pd.DataFrame(ususarios_flet) # Converte o JSON para um DF
+    df["dl_load_timestamp"] = pd.Timestamp.now() # inserir a coluna de datetime no df
+
+    return df
+pass
+
+def extract_posts() -> pd.DataFrame:
+    posts = fetch_posts()
+
+    df = pd.DataFrame(posts)
+    df["dl_load_timestamp"] = pd.Timestamp.now()
+
+    return df
+pass
