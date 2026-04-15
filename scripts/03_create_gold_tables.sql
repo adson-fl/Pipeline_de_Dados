@@ -6,5 +6,5 @@ CREATE TABLE gold_metricas_usuario (
     total_posts INTEGER,
     media_palavras_titulo FLOAT,
     primeiro_post_titulo TEXT,
-    dt_processamento DATA
+    dt_processamento DATE
 );

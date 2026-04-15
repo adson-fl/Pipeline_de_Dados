@@ -5,7 +5,7 @@ CREATE TABLE silver_usuarios (
     cidade VARCHAR (255),
     empresa VARCHAR (255),
     dominio_email VARCHAR(255),
-    dt_processamento DATA
+    dt_processamento DATE
 );
 
 CREATE TABLE silver_posts (
@@ -14,5 +14,5 @@ CREATE TABLE silver_posts (
     titulo TEXT,
     conteudo TEXT,
     qtd_palavras_titulo INTEGER,
-    dt_processamento DATA
+    dt_processamento DATE
 );

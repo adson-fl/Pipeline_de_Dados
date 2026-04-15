@@ -5,7 +5,7 @@ CREATE TABLE raw_usuarios (
     email VARCHAR (255),
     address_street VARCHAR (255),
     address_city VARCHAR (255),
-    address_zipcode, VARCHAR (255),
+    address_zipcode VARCHAR (255),
     phone VARCHAR (50),
     website VARCHAR (255),
     company_name VARCHAR (255),
