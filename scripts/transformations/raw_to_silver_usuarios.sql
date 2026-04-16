@@ -12,7 +12,7 @@ SELECT
     name AS nome_completo,
     email,
     address_city AS cidade,
-    company_name, AS empresa,
-    silver_posts(email, '@', 2) AS dominio_email,
+    company_name AS empresa,
+    split_part(email, '@', 2) AS dominio_email,
     CURRENT_DATE AS dt_processamento
 FROM raw_usuarios;
