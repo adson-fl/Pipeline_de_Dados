@@ -12,7 +12,7 @@ def run_sql_file(file_path):
     with open(file_path, "r") as file:
         sql = file.read() # ler
 
-    with engine.connect() as conn: # abrir conexão com o banco
+    with engine.begin() as conn: # abrir conexão com o banco
         conn.execute(text(sql)) # insert do excript sql 
     
 
