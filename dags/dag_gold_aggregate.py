@@ -3,6 +3,10 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime
 from sqlalchemy import create_engine, text
 
+default_args = {
+    "owner": "etl_user",
+    "retries": 1
+}
 DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
 def run_sql_file(file_path):
@@ -19,6 +23,7 @@ def create_metricas_usuario():
 
 with DAG(
     dag_id="etl_gold_aggregate",
+    default_args=default_args,
     schedule_interval="0 7 * * *", #Diario as 7h 
     start_date=datetime(2024, 1, 1), 
     catchup=False,

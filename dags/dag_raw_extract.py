@@ -24,6 +24,7 @@ def load_posts():
 
 with DAG(
     dag_id="etl_raw_extract",
+    default_args=default_args,
     schedule_interval="0 6 * * *", # horario de atualização
     start_date=datetime(2024, 1, 1), # data inicial 
     catchup=False,

@@ -3,6 +3,10 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime
 from sqlalchemy import create_engine, text
 
+default_args = {
+    "owner": "etl_user",
+    "retries": 1
+}
 DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
 # Função generica
@@ -26,6 +30,7 @@ def transform_posts():
 # DAG
 with DAG (
     dag_id= "etl_silver_transform",
+    default_args=default_args,
     schedule_interval="30 6 * * *",
     start_date=datetime(2024, 1, 1),
     catchup=False,
