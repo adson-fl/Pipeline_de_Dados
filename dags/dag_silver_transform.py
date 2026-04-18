@@ -6,7 +6,7 @@ from sqlalchemy import create_engine, text
 DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
 # Função generica
-def rum_sql_file(file_path):
+def run_sql_file(file_path):
     engine = create_engine(DB_URI) # conexão com o banco
 
     with open(file_path, "r") as file:
@@ -18,10 +18,10 @@ def rum_sql_file(file_path):
 
 # tasks
 def transform_usuarios():
-    rum_sql_file("scripts/transformations/raw_to_silver_usuarios.sql")
+    run_sql_file("scripts/transformations/raw_to_silver_usuarios.sql")
 
 def transform_posts():
-    rum_sql_file("scripts/transformations/raw_to_silver_posts.sql")
+    run_sql_file("scripts/transformations/raw_to_silver_posts.sql")
 
 # DAG
 with DAG (
