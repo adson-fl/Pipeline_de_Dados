@@ -8,22 +8,22 @@ def fetch_usuarios() -> list[dict]:
     url = "https://jsonplaceholder.typicode.com/users"
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=30) # desiste se a API nao responder em 30s
         response.raise_for_status() #validação do HTTP
         usuarios = response.json()
 
         if not isinstance(usuarios, list):
             raise ValueError("Resposta inesperada da API")
-        
+
         return usuarios
-    
+
     except requests.exceptions.RequestException as e:
         print(f"Erro na requisição: {e}")
-        return []
-    
+        raise # repassa o erro para o Airflow marcar a task como falha
+
     except ValueError as e:
         print(f"Erro de validação: {e}")
-        return []
+        raise
 pass
 # lista de dicionario de posts
 def fetch_posts() -> list[dict]:
@@ -31,21 +31,21 @@ def fetch_posts() -> list[dict]:
     url = "https://jsonplaceholder.typicode.com/posts"
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=30)
         response.raise_for_status()
         posts = response.json()
 
         if not isinstance(posts, list):
             raise ValueError("Resposta inesperada da API")
-        
+
         return posts
-    
+
     except requests.exceptions.RequestException as e:
         print(f"Erro na requisição: {e}")
-        return []
+        raise
     except ValueError as e:
         print(f"Erro de validação: {e}")
-        return []
+        raise
 pass
 
 def flatte_usuario(usuario: dict) -> dict:
