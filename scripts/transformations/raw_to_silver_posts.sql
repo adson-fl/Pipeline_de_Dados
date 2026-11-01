@@ -13,6 +13,7 @@ SELECT
     LEFT(REPLACE(COALESCE(body, ''), E'\n', ''), 500) AS conteudo, -- Remove \n e trunca até 500
     COALESCE(array_length(string_to_array(COALESCE(title, ''), ' '), 1), 0) AS qtd_palavras_titulo,
     CURRENT_DATE AS dt_processamento
-FROM raw_posts;
+FROM raw_posts
+ON CONFLICT (post_id) DO NOTHING; -- ignora posts que ja existem na silver
 
 

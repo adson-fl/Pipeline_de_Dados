@@ -43,4 +43,5 @@ SELECT
     CURRENT_DATE AS dt_processamento
 FROM silver_usuarios u
 LEFT JOIN agregados a ON u.user_id = a.user_id
-LEFT JOIN primeiro_post pp ON u.user_id = pp.user_id;
+LEFT JOIN primeiro_post pp ON u.user_id = pp.user_id
+ON CONFLICT (user_id) DO NOTHING; -- ignora usuarios que ja existem na gold

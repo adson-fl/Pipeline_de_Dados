@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 from sqlalchemy import create_engine
+from sqlalchemy.dialects.postgresql import insert
 
 from src.extract_api import extract_usuarios, extract_posts
 
@@ -11,15 +12,22 @@ default_args = {
 }
 DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
+# INSERT ... ON CONFLICT DO NOTHING: ids que já existem na tabela são ignorados
+def insert_ignorando_duplicados(table, conn, keys, data_iter):
+    dados = [dict(zip(keys, linha)) for linha in data_iter]
+    if not dados:
+        return
+    conn.execute(insert(table.table).values(dados).on_conflict_do_nothing())
+
 def load_usuarios():
     df = extract_usuarios()
     engine = create_engine(DB_URI) # conexão com o banco
-    df.to_sql("raw_usuarios", engine, if_exists="append", index=False) # nserção dos usuarios com o banco
+    df.to_sql("raw_usuarios", engine, if_exists="append", index=False, method=insert_ignorando_duplicados) # inserção dos usuarios com o banco
 
 def load_posts():
     df = extract_posts()
     engine = create_engine(DB_URI)
-    df.to_sql("raw_posts", engine, if_exists="append", index=False) # inserção dos posts com o banco
+    df.to_sql("raw_posts", engine, if_exists="append", index=False, method=insert_ignorando_duplicados) # inserção dos posts com o banco
 
 
 with DAG(

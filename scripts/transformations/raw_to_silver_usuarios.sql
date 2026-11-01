@@ -15,4 +15,5 @@ SELECT
     company_name AS empresa,
     split_part(email, '@', 2) AS dominio_email,
     CURRENT_DATE AS dt_processamento
-FROM raw_usuarios;
+FROM raw_usuarios
+ON CONFLICT (user_id) DO NOTHING; -- ignora usuarios que ja existem na silver
