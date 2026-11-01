@@ -5,12 +5,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.dialects.postgresql import insert
 
 from src.extract_api import extract_usuarios, extract_posts
+from src.config import DB_URI
 
 default_args = {
     "owner": "etl_user",
     "retries": 1
 }
-DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
 # INSERT ... ON CONFLICT DO NOTHING: ids que já existem na tabela são ignorados
 def insert_ignorando_duplicados(table, conn, keys, data_iter):

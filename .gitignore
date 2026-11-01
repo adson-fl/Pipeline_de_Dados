@@ -5,3 +5,6 @@ __pycache__/
 # arquivos de entrega
 *.bundle
 *.zip
+
+# variaveis de ambiente (credenciais)
+.env

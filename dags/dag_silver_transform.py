@@ -3,11 +3,12 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime
 from sqlalchemy import create_engine, text
 
+from src.config import DB_URI
+
 default_args = {
     "owner": "etl_user",
     "retries": 1
 }
-DB_URI = "postgresql://etl_user:SENHA_REMOVIDA@localhost:5432/teste_dados"
 
 # Função generica
 def run_sql_file(file_path):
